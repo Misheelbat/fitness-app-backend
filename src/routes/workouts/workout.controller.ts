@@ -5,8 +5,10 @@ async function getAllWorkouts(req: Request, res: Response) {
 	try {
 		const allWorkouts = await pool.query('SELECT * FROM workout');
 		res.json(allWorkouts.rows);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function getWorkoutById(req: Request, res: Response) {
@@ -17,8 +19,10 @@ async function getWorkoutById(req: Request, res: Response) {
 			[id]
 		);
 		res.status(200).json(workout.rows);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function createNewWorkout(req: Request, res: Response) {
@@ -29,8 +33,10 @@ async function createNewWorkout(req: Request, res: Response) {
 			[w_name, account_id]
 		);
 		res.json(newWorkout);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 
@@ -43,8 +49,10 @@ async function updateWorkoutName(req: Request, res: Response) {
 			id,
 		]);
 		res.status(200).json('updated Workout Name');
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 
@@ -53,8 +61,10 @@ async function deleteWorkoutById(req: Request, res: Response) {
 		const { id } = req.params;
 		await pool.query('DELETE FROM workout WHERE workout_id = $1', [id]);
 		res.json('workout Info deleted');
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 export {

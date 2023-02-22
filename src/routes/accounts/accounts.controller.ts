@@ -5,8 +5,10 @@ async function getAllAccounts(req: Request, res: Response) {
 	try {
 		const allAccounts = await pool.query('SELECT * FROM accounts');
 		return res.status(200).json(allAccounts.rows);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function getAccountById(req: Request, res: Response) {
@@ -17,8 +19,10 @@ async function getAccountById(req: Request, res: Response) {
 			[id]
 		);
 		res.status(200).json(account.rows);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function createNewAccount(req: Request, res: Response) {
@@ -29,8 +33,10 @@ async function createNewAccount(req: Request, res: Response) {
 			[name, email, password]
 		);
 		res.status(200).json(newAccount);
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function updateAccountById(req: Request, res: Response) {
@@ -42,8 +48,10 @@ async function updateAccountById(req: Request, res: Response) {
 			id,
 		]);
 		res.status(200).json('updated Account Info');
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 async function deleteAccountById(req: Request, res: Response) {
@@ -51,8 +59,10 @@ async function deleteAccountById(req: Request, res: Response) {
 		const { id } = req.params;
 		await pool.query('DELETE FROM accounts  WHERE account_id = $1', [id]);
 		res.json('Account Info deleted');
-	} catch (error: any) {
-		console.log(error.message);
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
 	}
 }
 export {
