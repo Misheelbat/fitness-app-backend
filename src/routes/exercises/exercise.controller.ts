@@ -44,22 +44,6 @@ async function createNewExercise(req: Request, res: Response) {
 	}
 }
 
-// async function updateWorkoutName(req: Request, res: Response) {
-// 	try {
-// 		const { id } = req.params;
-// 		const { w_name } = req.body;
-// 		await pool.query('UPDATE workout SET w_name = $1 WHERE workout_id = $2', [
-// 			w_name,
-// 			id,
-// 		]);
-// 		res.status(200).json('updated Workout Name');
-// 	} catch (err: any) {
-// 		return res.status(400).json({
-// 			error: err.message,
-// 		});
-// 	}
-// }
-
 async function deleteExerciseById(req: Request, res: Response) {
 	try {
 		const { ex_id, workout_id } = req.body;

@@ -40,3 +40,5 @@ CREATE TABLE sets(
   FOREIGN KEY(ex_id,workout_id)
   REFERENCES exercise(ex_id,workout_id)
 );
+
+ 
