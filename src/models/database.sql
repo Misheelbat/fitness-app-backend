@@ -41,4 +41,13 @@ CREATE TABLE sets(
   REFERENCES exercise(ex_id,workout_id)
 );
 
- 
+CREATE TABLE session(
+  session_id INT,
+  session_date DATE NOT NULL,
+  account_id INT,
+  workout_id INT,
+  CONSTRAINT fk1 FOREIGN KEY (account_id)
+  REFERENCES accounts (account_id),
+  CONSTRAINT fk2 FOREIGN KEY (workout_id)
+  REFERENCES workout (workout_id)
+)
