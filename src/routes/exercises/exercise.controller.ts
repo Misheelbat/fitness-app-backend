@@ -60,15 +60,23 @@ async function createNewExercise(req: Request, res: Response) {
 // 	}
 // }
 
-// async function deleteWorkoutById(req: Request, res: Response) {
-// 	try {
-// 		const { id } = req.params;
-// 		await pool.query('DELETE FROM workout WHERE workout_id = $1', [id]);
-// 		res.json('workout Info deleted');
-// 	} catch (err: any) {
-// 		return res.status(400).json({
-// 			error: err.message,
-// 		});
-// 	}
-// }
-export { getAllExercisesInWorkout, getExerciseById, createNewExercise };
+async function deleteExerciseById(req: Request, res: Response) {
+	try {
+		const { ex_id, workout_id } = req.body;
+		await pool.query(
+			'DELETE FROM exercise WHERE ex_id = $1 AND workout_id = $2',
+			[ex_id, workout_id]
+		);
+		res.json('exercise deleted');
+	} catch (err: any) {
+		return res.status(400).json({
+			error: err.message,
+		});
+	}
+}
+export {
+	getAllExercisesInWorkout,
+	getExerciseById,
+	createNewExercise,
+	deleteExerciseById,
+};
