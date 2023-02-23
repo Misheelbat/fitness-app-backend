@@ -57,8 +57,8 @@ async function deleteSessionId(req: Request, res: Response) {
 	}
 }
 export {
-	createNewSession,
-	getAllSessionsByAccount,
 	getSessionById,
 	deleteSessionId,
+	createNewSession,
+	getAllSessionsByAccount,
 };

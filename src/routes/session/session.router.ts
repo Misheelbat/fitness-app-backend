@@ -1,9 +1,9 @@
 import express from 'express';
 import {
-	createNewSession,
-	getAllSessionsByAccount,
 	getSessionById,
 	deleteSessionId,
+	createNewSession,
+	getAllSessionsByAccount,
 } from './session.controller';
 
 const sessionRouter = express.Router();
