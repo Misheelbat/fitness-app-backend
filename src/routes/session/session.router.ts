@@ -1,11 +1,16 @@
 import express from 'express';
+import {
+	createNewSession,
+	getAllSessionsByAccount,
+	getSessionById,
+	deleteSessionId,
+} from './session.controller';
 
-const setsRouter = express.Router();
+const sessionRouter = express.Router();
 
-// setsRouter.post('/', createNewSet);
-// setsRouter.get('/', getAllSetsInExercises);
-// setsRouter.get('/:id', getSetsById);
-// setsRouter.delete('/', deleteExerciseById);
-// setsRouter.put('/:id', updateWorkoutName);
+sessionRouter.get('/', getAllSessionsByAccount);
+sessionRouter.get('/:id', getSessionById);
+sessionRouter.post('/', createNewSession);
+sessionRouter.delete('/:id', deleteSessionId);
 
-// export { setsRouter, getSetsById };
+export { sessionRouter };
