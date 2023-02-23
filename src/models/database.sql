@@ -50,4 +50,4 @@ CREATE TABLE session(
   REFERENCES accounts (account_id),
   CONSTRAINT fk2 FOREIGN KEY (workout_id)
   REFERENCES workout (workout_id)
-)
+);

@@ -1,15 +1,17 @@
 import express from 'express';
 import {
 	createNewSet,
-	getAllSetsInExercises,
+	getAllSetsInExercise,
 	getSetsById,
+	deleteSetById,
+	updateSetData,
 } from './sets.controller';
 const setsRouter = express.Router();
 
 setsRouter.post('/', createNewSet);
-setsRouter.get('/', getAllSetsInExercises);
+setsRouter.get('/', getAllSetsInExercise);
 setsRouter.get('/:id', getSetsById);
-// setsRouter.delete('/', deleteExerciseById);
-// setsRouter.put('/:id', updateWorkoutName);
+setsRouter.delete('/:id', deleteSetById);
+setsRouter.put('/:id', updateSetData);
 
-export { setsRouter, getSetsById };
+export { setsRouter };
