@@ -11,7 +11,7 @@ const accountsRouter = express.Router();
 
 accountsRouter.get('/', getAllAccounts);
 accountsRouter.get('/:id', getAccountById);
-accountsRouter.post('/', createNewAccount);
+accountsRouter.post('/register', createNewAccount);
 accountsRouter.put('/:id', updateAccountById);
 accountsRouter.delete('/:id', deleteAccountById);
 

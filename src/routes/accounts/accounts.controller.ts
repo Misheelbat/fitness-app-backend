@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+import { fromZodError } from 'zod-validation-error';
+import bcrypt from 'bcrypt';
 import pool from '../../db';
+import { Account } from '../../models/Account';
 
 async function getAllAccounts(req: Request, res: Response) {
 	try {
@@ -11,6 +14,7 @@ async function getAllAccounts(req: Request, res: Response) {
 		});
 	}
 }
+
 async function getAccountById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
@@ -25,12 +29,20 @@ async function getAccountById(req: Request, res: Response) {
 		});
 	}
 }
+
 async function createNewAccount(req: Request, res: Response) {
 	try {
-		const { name, email, password } = req.body;
+		const credentials = req.body;
+		const safeCredentials = Account.safeParse(credentials);
+
+		if (!safeCredentials.success) {
+			throw fromZodError(safeCredentials.error);
+		}
+
+		let hashedPassword = await bcrypt.hash(credentials.password, 10);
 		const newAccount = await pool.query(
 			'INSERT INTO accounts (name,email,password) VALUES ($1, $2, $3) ',
-			[name, email, password]
+			[credentials.name, credentials.email, hashedPassword]
 		);
 		res.status(200).json(newAccount);
 	} catch (err: any) {
@@ -39,6 +51,7 @@ async function createNewAccount(req: Request, res: Response) {
 		});
 	}
 }
+
 async function updateAccountById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
@@ -54,6 +67,7 @@ async function updateAccountById(req: Request, res: Response) {
 		});
 	}
 }
+
 async function deleteAccountById(req: Request, res: Response) {
 	try {
 		const { id } = req.params;
@@ -65,6 +79,7 @@ async function deleteAccountById(req: Request, res: Response) {
 		});
 	}
 }
+
 export {
 	getAllAccounts,
 	getAccountById,

@@ -2,6 +2,8 @@ import { Pool } from 'pg';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
+// const isProduction = process.env.NODE_ENV === 'production';
+
 const pool = new Pool({
 	user: process.env.POSTGRES_USER,
 	password: String(process.env.POSTGRES_PASS),
