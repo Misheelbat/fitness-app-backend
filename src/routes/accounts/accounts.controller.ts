@@ -46,6 +46,14 @@ async function createNewAccount(req: Request, res: Response) {
 		);
 		res.status(200).json(newAccount);
 	} catch (err: any) {
+		if (
+			err.message ===
+			'duplicate key value violates unique constraint "accounts_email_key"'
+		) {
+			return res.status(400).json({
+				error: 'Email is already in use',
+			});
+		}
 		return res.status(400).json({
 			error: err.message,
 		});
