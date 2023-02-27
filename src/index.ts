@@ -7,15 +7,17 @@ import { setsRouter } from './routes/sets/sets.router';
 import { sessionRouter } from './routes/session/session.router';
 import { authRouter } from './routes/auth/auth.router';
 
+import { deserializeUser } from './middleware/deserializeUser';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 //middleware
 app.use(cors());
 app.use(express.json());
+app.use(deserializeUser);
 
 //routes
-app.use('/', accountsRouter);
+app.use('/account', accountsRouter);
 app.use('/', authRouter);
 app.use('/workouts', workoutsRouter);
 app.use('/exercises', exerciseRouter);

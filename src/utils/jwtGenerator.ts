@@ -4,7 +4,7 @@ dotenv.config();
 
 function signJwt(account_id: string, options?: jwt.SignOptions | undefined) {
 	const payload = {
-		account: account_id,
+		id: account_id,
 	};
 	const secret = String(process.env.SECRET);
 	return jwt.sign(payload, secret, {

@@ -34,4 +34,30 @@ async function findAccountByEmail(email: string) {
 	}
 }
 
-export { createAccountToken, findAccountByEmail };
+async function findAccountById(id: string) {
+	try {
+		const account = await pool.query(
+			'SELECT * FROM accounts WHERE account_id = $1',
+			[id]
+		);
+		return account;
+	} catch (e: any) {
+		throw new Error(e.message);
+	}
+}
+
+async function deleteAccountById(id: string) {
+	try {
+		await pool.query('DELETE FROM accounts WHERE account_id = $1', [id]);
+		return 'account deleted';
+	} catch (e: any) {
+		throw new Error(e.message);
+	}
+}
+
+export {
+	createAccountToken,
+	findAccountByEmail,
+	findAccountById,
+	deleteAccountById,
+};
